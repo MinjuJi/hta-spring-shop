@@ -12,6 +12,10 @@ public class ProductController {
 	public String list() {
 		return "product/list"; // "/WEB-INF/views/product/list.jsp"로 내부이동
 	}
-
+	
+	@GetMapping(path = "/create")
+	public String form() {
+		return "product/form"; // "/WEB-INF/views/product/form.jsp"로 내부이동
+	}
 	
 }
