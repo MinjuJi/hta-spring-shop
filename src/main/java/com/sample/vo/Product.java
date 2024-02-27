@@ -38,4 +38,17 @@ public class Product {
 		this.createdDate = createdDate;
 	}
 	
+	public String getStatusText() {
+		if(status == null) {
+			return null;
+		}
+		
+		if("SELL".equals(status)) {
+			return "판매중";
+		} else if("SOLD_OUT".equals(status)) {
+			return "품절";
+		}
+		
+		return null;
+	}
 }
