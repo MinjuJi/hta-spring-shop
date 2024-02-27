@@ -11,5 +11,6 @@ public interface ProductMapper {
 	
 	void insertProduct(Product product);
 	List<Product> getAllProducts();
+	Product getProductByNo(int no);
 	
 }

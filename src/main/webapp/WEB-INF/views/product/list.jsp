@@ -48,7 +48,7 @@
 							<c:forEach var="product" items="${productList }">
 								<tr>
 									<td><input type="checkbox"></td>
-									<td>${product.name }</td>
+									<td><a href="detail?no=${product.no }">${product.name }</a></td>
 									<td><fmt:formatNumber value="${product.price}" /> 원</td>
 									<td><fmt:formatNumber value="${product.stock}" /> 개</td>
 									<!-- Product 클래스의 getStatusText() 메소드명에서 get을 제거하여 사용 -->

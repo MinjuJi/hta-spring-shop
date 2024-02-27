@@ -36,6 +36,18 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	/*
+	 * 요청 URL : /product/detail?no=10
+	 * 요청파라미터 : no=10
+	 */
+	@GetMapping("/detail")
+	public String detail(int no, Model model) {
+		Product product = productService.getProductDetail(no);
+		model.addAttribute("product", product);
+		
+		return "product/detail"; // "/WEB-INF/views/product/detail.jsp"로 내부이동
+	}
+	
 	@GetMapping(path = "/list")
 	public String list(Model model) {
 		List<Product> productList = productService.getProducts();

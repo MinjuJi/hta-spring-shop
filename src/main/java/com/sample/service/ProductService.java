@@ -38,4 +38,8 @@ public class ProductService {
 	public List<Product> getProducts(){
 		return productMapper.getAllProducts();
 	}
+
+	public Product getProductDetail(int no) {
+		return productMapper.getProductByNo(no);
+	}
 }
