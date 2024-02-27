@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sample.mapper.ProductMapper">
 
+	<!-- ProductMapper 인터페이스의 void insertProduct(Product product) 추상메소드와 연관된 SQL 구문이다.-->
 	<insert id="insertProduct" parameterType="com.sample.vo.Product">
 		 
 		INSERT INTO shop_products
@@ -10,4 +11,26 @@
 		(products_seq.nextval, #{name}, #{description}, #{stock}, #{price})
 		
 	</insert>
+	
+	<!-- ProductMapper 인터페이스의 List<Product> getAllProducts() 추상메소드와 연관된 SQL 구문이다. -->
+	<select id="getAllProducts" resultType="com.sample.vo.Product">
+		
+		SELECT 
+				product_no					AS no,
+				product_name				AS name,
+				product_description			AS description,
+				product_stock				AS stock,
+				product_price				AS price,
+				product_status				AS status,
+				product_fileName			AS fileName,
+				product_created_date		AS createdDate,
+				product_updated_date		AS updatedDate
+		
+		FROM
+				shop_products
+				
+		ORDER BY	
+				product_no DESC
+				
+	</select>
 </mapper>

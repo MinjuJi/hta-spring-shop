@@ -1,5 +1,7 @@
 package com.sample.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,13 @@ public class ProductService {
 								 .build();
 		
 		productMapper.insertProduct(product);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Product> getProducts(){
+		return productMapper.getAllProducts();
 	}
 }
