@@ -68,4 +68,87 @@
 		WHERE
 				product_no = #{value}
 	</select>
+	
+	<!-- 
+		ProductMapper 인터페이스의 int getTotalRows(Criteria criteria) 추상메소드와 연관된 SQL 구문이다.
+		
+		출력 : int - resultType - int
+		입력 : Criteria - parameterType - com.sample.web.dto.Criteria
+	 -->
+	<select id="getTotalRows" parameterType="com.sample.web.dto.Criteria" resultType="int">
+		SELECT
+				count(*)
+				
+		FROM
+				shop_products
+		<where>
+			<if test="opt != null">
+				<choose>
+					<when test="opt == 'name'">
+						product_name like '%' || #{keyword} || '%'
+					</when>
+					<when test="opt == 'price'">
+						product_price BETWEEN 0 AND to_number(#{keyword})
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 
+		ProductMapper 인터페이스의 List<Product> getProducts(Criteria criteria) 추상메소드와 연관된 SQL 구문이다.
+		
+		출력 : List<Product> - resultType - com.sample.vo.Product
+		입력 : Criteria - parameterType - com.sample.web.dto.Criteria
+	 -->
+	<select id="getProducts" parameterType="com.sample.web.dto.Criteria" resultType="com.sample.vo.Product">
+		SELECT
+				product_no				AS no,
+				product_name			AS name,
+				product_price			AS price,
+				product_status			AS status,	
+				product_stock			AS stock
+				
+		FROM	(SELECT 
+						product_no,
+						product_name,
+						product_price,
+						product_status,
+						product_stock,
+						<choose>
+							<when test="sort == 'date'">
+								row_number() OVER(ORDER BY product_no DESC) row_num
+							</when>
+							<when test="sort == 'name'">
+								row_number() OVER(ORDER BY product_name ASC) row_num
+							</when>
+							<when test="sort == 'lowprice'">
+								row_number() OVER(ORDER BY product_price ASC) row_num
+							</when>
+							<when test="sort == 'highprice'">
+								row_number() OVER(ORDER BY product_price DESC) row_num
+							</when>
+						</choose>
+						
+				FROM
+						shop_products
+				
+				<where>
+					<if test="opt != null">
+						<choose>
+							<when test="opt == 'name'">
+								product_name like '%' || #{keyword} || '%'
+							</when>
+							<when test="opt == 'price'">
+								product_price BETWEEN 0 AND to_number(#{keyword})
+							</when>
+						</choose>
+					</if>
+				</where>		
+				)
+				
+		WHERE
+				row_num BETWEEN #{begin} AND #{end}
+	</select>
+	
 </mapper>
