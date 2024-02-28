@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../common/tags.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,32 +18,34 @@
 			<h1 class="fs-3">상품관리 - 상품 상세정보</h1>
 			
 			<div class="row">
-				<div class="col-5"></div>			
-				<div class="col-7">
+				<div class="col-4">
+					<img src="/resources/images/product/${product.fileName }" class="img-thumbnail" />
+				</div>			
+				<div class="col-8">
 					<table class="table">
 						<tr>
 							<th>이름</th>
-							<td colspan="3">갤럭시 S24</td>
+							<td colspan="3">${product.name }</td>
 						</tr>
 						<tr>
 							<th>등록일</th>
-							<td>2024-01-01</td>
+							<td><fmt:formatDate value="${product.createdDate}" pattern="yyyy-MM-dd"/></td>
 							<th>수정일</th>
-							<td>2024-02-02</td>
+							<td><fmt:formatDate value="${product.updatedDate}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<th>재고수량</th>
-							<td>3,000 개</td>
+							<td><fmt:formatNumber value="${product.stock }" /> 개</td>
 							<th>상태</th>
-							<td>판매중</td>
+							<td>${product.statusText }</td>
 						</tr>
 						<tr>
 							<th>판매가격</th>
-							<td colspan="3">1,100,000 원</td>
+							<td colspan="3"><fmt:formatNumber value="${product.price }" /> 원</td>
 						</tr>
 						<tr>
 							<th>설명</th>
-							<td colspan="3">갤럭시 S24 출시</td>
+							<td colspan="3">${product.description }</td>
 						</tr>
 					</table>
 					<div class="text-end">
