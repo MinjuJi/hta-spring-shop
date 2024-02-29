@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sample.service.CompanyService;
 import com.sample.service.ProductService;
+import com.sample.vo.Company;
 import com.sample.vo.Product;
 import com.sample.web.dto.Criteria;
 import com.sample.web.dto.ListDto;
@@ -39,6 +41,9 @@ public class ProductController {
 	 */
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CompanyService companyService;
 	
 	/*
 	 * 요청 URL : /product/detail?no=10
@@ -86,7 +91,11 @@ public class ProductController {
 	}
 	
 	@GetMapping(path = "/create")
-	public String form() {
+	public String form(Model model) {
+		// 전체 회사정보를 조회하고, Model에 저장한다.
+		List<Company> companyList = companyService.getAllCompanies();
+		model.addAttribute("companyList", companyList);
+		
 		return "product/form"; // "/WEB-INF/views/product/form.jsp"로 내부이동
 	}
 	

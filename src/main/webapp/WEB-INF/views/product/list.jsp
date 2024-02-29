@@ -101,9 +101,9 @@
 										<!-- Product 클래스의 getStatusText() 메소드명에서 get을 제거하여 사용 -->
 										<td>${product.statusText}</td>
 										<td>
-											<a href="", class="btn btn-outline-primary btn-sm">입고</a>
-											<a href="", class="btn btn-outline-danger btn-sm">판매중지</a>
-											<a href="", class="btn btn-outline-success btn-sm">판매재개</a>
+											<a href="" class="btn btn-outline-primary btn-sm">입고</a>
+											<a href="" class="btn btn-outline-danger btn-sm">판매중지</a>
+											<a href="" class="btn btn-outline-success btn-sm">판매재개</a>
 										</td>
 									</tr>
 								</c:forEach>

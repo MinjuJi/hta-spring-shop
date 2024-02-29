@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sample.mapper.CompanyMapper">
+
+	<!-- 
+		CompanyMapper 인터페이스의
+			List<Company> getAllCompanies() 추상메소드와 연관된 SQL 구문이다.
+			
+			출력 : List<Company> - resultType - com.sample.vo.Company
+			입력 : 없음 - parameterType - 없음
+	 -->
+	 
+	 <select id="getAllCompanies" resultType="com.sample.vo.Company">
+	 	SELECT 
+	 			company_no			AS no,
+	 			company_name		AS name,
+	 			company_tel			AS tel,
+	 			company_zipcode		AS zipcode,
+	 			company_address1	AS address1,
+	 			company_address2	AS address2
+	 	
+	 	FROM
+	 			shop_companies
+	 	
+	 	ORDER BY 
+	 			company_name ASC 
+	 </select>
+</mapper>

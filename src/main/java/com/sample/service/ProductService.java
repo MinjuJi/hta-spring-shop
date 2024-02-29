@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.sample.mapper.ProductMapper;
+import com.sample.vo.Company;
 import com.sample.vo.Product;
 import com.sample.web.dto.Criteria;
 import com.sample.web.dto.ListDto;
@@ -30,6 +31,10 @@ public class ProductService {
 	public void createProduct(ProductCreateForm form) {
 		String fileName = fileService.upload(form.getPhotofile());
 		
+		Company company = Company.builder()
+								.no(form.getCompanyNo())
+								.build();
+		
 		// ProductCreateFrom 객체에 저장된 값으로 Product 객체를 생성하고, 초기화한다.
 		Product product = Product.builder()
 								 .name(form.getName())
@@ -37,6 +42,7 @@ public class ProductService {
 								 .price(form.getPrice())
 								 .fileName(fileName)
 								 .stock(form.getStock())
+								 .company(company)
 								 .build();
 		
 		productMapper.insertProduct(product);
