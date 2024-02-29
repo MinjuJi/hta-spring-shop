@@ -69,4 +69,9 @@ public class ProductService {
 	public Product getProductDetail(int no) {
 		return productMapper.getProductByNo(no);
 	}
+
+	public void deleteProducts(List<Integer> noList) {
+		productMapper.deleteProducts(noList);
+		
+	}
 }

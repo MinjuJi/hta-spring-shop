@@ -151,4 +151,20 @@
 				row_num BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<!-- 
+		ProductMapper 인터페이스의 Product deleteProducts(@Param("noList") List<Integer> noList) 추상메소드와 연관된 SQL 구문이다. 
+		
+		출력 : void - resultTypq - 없음
+		입력 : List<Integer> - parameterType - 추상메소드에서 @Param("noList")로 지정했기 때문에 설정할 필요 없음
+	 -->
+	<delete id="deleteProducts">
+		DELETE FROM
+					shop_products
+		WHERE
+					product_no IN
+					<foreach item="no" collection="noList" open="(" separator="," close=")">
+						#{no}
+					</foreach>
+	
+	</delete>
 </mapper>

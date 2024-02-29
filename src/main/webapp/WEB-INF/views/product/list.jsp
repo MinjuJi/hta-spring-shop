@@ -94,7 +94,7 @@
 							<c:otherwise>
 								<c:forEach var="product" items="${productList }">
 									<tr>
-										<td><input type="checkbox"></td>
+										<td><input type="checkbox" name="no" value="${product.no }"></td>
 										<td><a href="detail?no=${product.no }">${product.name }</a></td>
 										<td><fmt:formatNumber value="${product.price}" /> 원</td>
 										<td><fmt:formatNumber value="${product.stock}" /> 개</td>
@@ -113,7 +113,7 @@
 				</table>
 				
 				<div class="row">
-					<div class="col-6">
+					<div class="col-4">
 						<div class="row row-cols-lg-auto g-3">
 							<div class="col-12">
 								<select class="form-select" name="opt">
@@ -129,7 +129,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-6">
+					<div class="col-4">
 						<c:if test="${paging.totalRows ne 0 }">
 							<nav>
 								<ul class="pagination">
@@ -160,6 +160,9 @@
 							</nav>
 						</c:if>
 					</div>
+					<div class="col-4">
+						<button type="button" class="btn btn-outline-secondary btn-sm" onclick="removeCheckedProducts()">선택삭제</button>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -185,6 +188,22 @@ function changePage(page, event){
 	event.preventDefault();
 	document.querySelector("input[name=page]").value = page;
 	document.getElementById("form-products").submit();
+}
+
+function removeCheckedProducts(){
+	let checkedCheckboxes = document.querySelectorAll("input[type=checkbox][name=no]:checked");	// 태그명이 input이고, type 속성값이 checkbox이고, name 속성값이 no이고, 체크상태가 checked인 모든 엘리먼트를 선택한다.
+	if(checkedCheckboxes.length == 0){
+		alert("체크된 체크박스가 없습니다.");
+		return;
+	}
+	
+	// <form> 엘리먼트를 선택한다.
+	let form = document.getElementById("form-products");
+	
+	// <form> 엘리먼트의 action 속성값을 delete로 변경한다.
+	// form을 제출하면 localhost/product/delete 요청을 서버로 보내게 된다.
+	form.setAttribute("action", "delete");
+	form.submit();
 }
 </script>
 </body>
