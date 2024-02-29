@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.sample.mapper.ProductMapper;
 import com.sample.vo.Product;
@@ -19,16 +20,22 @@ public class ProductService {
 	@Autowired
 	private ProductMapper productMapper;
 	
+	@Autowired
+	private FileService fileService;
+	
 	/**
 	 * ProductCreateForm 객체를 전달받아서 신규 상품으로 등록한다.
 	 * @param form 신규 상품정보가 포함된 ProductCreateForm 객체
 	 */
 	public void createProduct(ProductCreateForm form) {
+		String fileName = fileService.upload(form.getPhotofile());
+		
 		// ProductCreateFrom 객체에 저장된 값으로 Product 객체를 생성하고, 초기화한다.
 		Product product = Product.builder()
 								 .name(form.getName())
 								 .description(form.getDescription())
 								 .price(form.getPrice())
+								 .fileName(fileName)
 								 .stock(form.getStock())
 								 .build();
 		

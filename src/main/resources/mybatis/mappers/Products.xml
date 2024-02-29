@@ -11,9 +11,9 @@
 	<insert id="insertProduct" parameterType="com.sample.vo.Product">
 		 
 		INSERT INTO shop_products
-		(product_no, product_name, product_description, product_stock, product_price)
+		(product_no, product_name, product_description, product_stock, product_price, product_filename)
 		VALUES
-		(products_seq.nextval, #{name}, #{description}, #{stock}, #{price})
+		(products_seq.nextval, #{name}, #{description}, #{stock}, #{price}, #{fileName})
 		
 	</insert>
 	
