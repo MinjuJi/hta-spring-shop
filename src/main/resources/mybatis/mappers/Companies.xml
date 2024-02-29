@@ -17,7 +17,7 @@
 			입력 : 없음 - parameterType - 없음
 	 -->
 	 
-	 <select id="getAllCompanies" resultType="com.sample.vo.Company">
+	 <select id="getAllCompanies" resultType="com.sample.vo.Company" useCache="false">
 	 	SELECT 
 	 			company_no			AS no,
 	 			company_name		AS name,
