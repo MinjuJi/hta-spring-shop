@@ -18,9 +18,9 @@
 		<div class="col-12">
 			<h1 class="fs-3">상품관리 - 상품 목록</h1>
 			
-			<form action="list">
+			<form id="form-products" action="list">
 				<div class="my-3 d-flex justify-content-between">
-					<select class="form-control w-25" name="rows">
+					<select class="form-control w-25" name="rows" onchange="changeRows()">
 						<option value="5" ${param.rows eq 5 ? "selected" : ""}>5개씩 보기</option>
 						<option value="10" ${empty param.rows or param.rows eq 10 ? "selected" : ""}>10개씩 보기</option>
 						<option value="50" ${param.rows eq 50 ? "selected" : ""}>50개씩 보기</option>
@@ -31,7 +31,8 @@
 									type="radio" 
 									name="sort" 
 									value="date" 
-									${empty param.sort or param.sort eq "date" ? "checked" : "" }>
+									${empty param.sort or param.sort eq "date" ? "checked" : "" }
+									onchange="changeSort()">
 							<label class="form-check-label">최신순</label>
 						</div>
 						<div class="form-check form-check-inline">
@@ -39,7 +40,8 @@
 									type="radio" 
 									name="sort" 
 									value="name"
-									${param.sort eq "name" ? "checked" : "" }>
+									${param.sort eq "name" ? "checked" : "" }
+									onchange="changeSort()">
 							<label class="form-check-label">이름순</label>
 						</div>
 						<div class="form-check form-check-inline">
@@ -47,7 +49,8 @@
 									type="radio" 
 									name="sort" 
 									value="lowprice"
-									${param.sort eq "lowprice" ? "checked" : "" }>
+									${param.sort eq "lowprice" ? "checked" : "" }
+									onchange="changeSort()">
 							<label class="form-check-label">낮은 가격순</label>
 						</div>
 						<div class="form-check form-check-inline">
@@ -55,7 +58,8 @@
 									type="radio" 
 									name="sort" 
 									value="highprice"
-									${param.sort eq "highprice" ? "checked" : "" }>
+									${param.sort eq "highprice" ? "checked" : "" }
+									onchange="changeSort()">
 							<label class="form-check-label">높은 가격순</label>
 						</div>
 					</div>					
@@ -132,5 +136,17 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function changeRows(){
+	let form = document.getElementById("form-products");
+	form.submit();
+}
+
+function changeSort(){
+	let form = document.getElementById("form-products");
+	form.submit();
+}
+
+</script>
 </body>
 </html>
