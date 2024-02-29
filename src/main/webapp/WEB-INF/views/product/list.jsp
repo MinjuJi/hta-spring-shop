@@ -19,6 +19,7 @@
 			<h1 class="fs-3">상품관리 - 상품 목록</h1>
 			
 			<form id="form-products" action="list">
+				<input type="hidden" name="page"/>
 				<div class="my-3 d-flex justify-content-between">
 					<select class="form-control w-25" name="rows" onchange="changeRows()">
 						<option value="5" ${param.rows eq 5 ? "selected" : ""}>5개씩 보기</option>
@@ -111,18 +112,53 @@
 					</tbody>
 				</table>
 				
-				<div class="row row-cols-lg-auto g-3">
-					<div class="col-12">
-						<select class="form-select" name="opt">
-							<option value="name" ${param.opt eq "name" ? "selected" : ""}>상품이름</option>
-							<option value="price" ${param.opt eq "pirce" ? "selected" : ""}>상품가격</option>
-						</select>
+				<div class="row">
+					<div class="col-6">
+						<div class="row row-cols-lg-auto g-3">
+							<div class="col-12">
+								<select class="form-select" name="opt">
+									<option value="name" ${param.opt eq "name" ? "selected" : ""}>상품이름</option>
+									<option value="price" ${param.opt eq "pirce" ? "selected" : ""}>상품가격</option>
+								</select>
+							</div>
+							<div class="col-12">
+								<input type="text" class="form-control" name="keyword" value="${param.keyword }"/>
+							</div>
+							<div class="col-12">
+								<button type="submit" class="btn btn-outline-secondary">검색</button>
+							</div>
+						</div>
 					</div>
-					<div class="col-12">
-						<input type="text" class="form-control" name="keyword" value="${param.keyword }"/>
-					</div>
-					<div class="col-12">
-						<button type="submit" class="btn btn-outline-secondary">검색</button>
+					<div class="col-6">
+						<c:if test="${paging.totalRows ne 0 }">
+							<nav>
+								<ul class="pagination">
+									<li class="page-item">
+										<a href="list?page=${paging.currentPage - 1}" 
+											class="page-link ${paging.first ? 'disabled' : '' }"
+											onclick="changePage(${paging.currentPage - 1 }, event)">
+											이전
+										</a>
+									</li>
+									<c:forEach var="num" begin="${paging.beginPage }" end="${paging.endPage }">
+									<li class="page-item ${paging.currentPage eq num ? "active" : ""}">
+										<a href="list?page=${num }" 
+											class="page-link" 
+											onclick="changePage(${num }, event)">
+											${num }
+										</a>
+									</li>
+									</c:forEach>
+									<li class="page-item">
+										<a href="list?page=${paging.currentPage + 1}" 
+											class="page-link ${paging.last ? 'disabled' : '' }"
+											onclick="changePage(${paging.currentPage + 1 }, event)">
+											다음
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</c:if>
 					</div>
 				</div>
 			</form>
@@ -138,15 +174,18 @@
 </div>
 <script type="text/javascript">
 function changeRows(){
-	let form = document.getElementById("form-products");
-	form.submit();
+	let form = document.getElementById("form-products").submit();
 }
 
 function changeSort(){
-	let form = document.getElementById("form-products");
-	form.submit();
+	let form = document.getElementById("form-products").submit();
 }
 
+function changePage(page, event){
+	event.preventDefault();
+	document.querySelector("input[name=page]").value = page;
+	document.getElementById("form-products").submit();
+}
 </script>
 </body>
 </html>
