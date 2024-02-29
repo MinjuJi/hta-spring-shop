@@ -3,6 +3,13 @@
 <mapper namespace="com.sample.mapper.CompanyMapper">
 
 	<!-- 
+		MyBatis 쿼리 캐싱 기능
+			- mybatis는 mapper 별로 쿼리 캐싱 기능을 설정헌다.
+			- <cache /> 태그를 추가하면 해당 매퍼파일에서 select 구문으로 조회한 조회결과가 캐싱된다.
+	-->
+	 <cache eviction="FIFO" flushInterval="10000" size="512" readOnly="true" />
+	 
+	<!-- 
 		CompanyMapper 인터페이스의
 			List<Company> getAllCompanies() 추상메소드와 연관된 SQL 구문이다.
 			
