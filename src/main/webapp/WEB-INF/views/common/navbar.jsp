@@ -9,6 +9,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="/product/list">상품관리</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/dept/list">부서관리</a>
+			</li>
 		</ul>
 		
 	</div>
