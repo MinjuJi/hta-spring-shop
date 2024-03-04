@@ -15,6 +15,8 @@
 <div class="container">
 	<div class="row mb-3">
 		<div class="col-12">
+			<h1 class="fs-3">부서관리 - 부서 목록</h1>
+			
 			<form id="form-depts" >
 				<table class="table">
 					<colgroup>

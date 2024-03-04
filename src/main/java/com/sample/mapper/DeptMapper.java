@@ -9,7 +9,10 @@ import com.sample.vo.Dept;
 @Mapper
 public interface DeptMapper {
 	
-	List<Dept> getAllDept();
+	List<Dept> getAllDepts();
 
 	void insertDept(Dept dept);
+
+	Dept getDeptByNo(int deptNo);
+
 }

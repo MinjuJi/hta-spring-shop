@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sample.mapper.DeptMapper">
 	
-		<select id="getAllDept" resultType="com.sample.vo.Dept">
+		<select id="getAllDepts" resultType="com.sample.vo.Dept">
 		
 		SELECT 
 				dept_no					AS no,
@@ -27,5 +27,20 @@
 		(depts_seq.nextval, #{name}, #{tel}, #{fax})
 		
 		</insert>
+		
+		<select id="getDeptByNo" parameterType="int" resultType="com.sample.vo.Dept">
+	
+		SELECT 
+				dept_no					AS no,
+				dept_name				AS name,
+				dept_tel				AS tel,
+				dept_fax				AS fax
+		
+		FROM
+				shop_depts
+				
+		WHERE 	dept_no = #{value}
+				
+		</select>
 	
 </mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sample.mapper.EmpMapper">
+
+	<select id="getTotalRows" parameterType="com.sample.web.dto.Criteria" resultType="int">
+		SELECT
+				count(*)
+				
+		FROM
+				shop_employees
+		<where>
+			<if test="opt != null">
+				<choose>
+					<when test="opt == 'name'">
+						emp_name like '%' || #{keyword} || '%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
+	<select id="getEmps" parameterType="com.sample.web.dto.Criteria" resultType="com.sample.vo.Emp">
+		SELECT
+				emp_no				AS no,
+				emp_name			AS name,
+				emp_tel				AS tel,
+				emp_email			AS email,	
+				emp_salary			AS salary,
+				emp_hired_date		AS hiredDate,
+				dept_no				AS "dept.no"
+				
+		FROM	(SELECT 
+						emp_no,
+						emp_name,
+						emp_tel,
+						emp_email,
+						emp_salary,
+						emp_hired_date,
+						dept_no,
+						<choose>
+							<when test="sort == 'date'">
+								row_number() OVER(ORDER BY emp_no DESC) row_num
+							</when>
+							<when test="sort == 'name'">
+								row_number() OVER(ORDER BY emp_name ASC) row_num
+							</when>
+							<when test="sort == 'salary'">
+								row_number() OVER(ORDER BY emp_salary DESC) row_num
+							</when>
+							<when test="sort == 'hire'">
+								row_number() OVER(ORDER BY emp_hired_date DESC) row_num
+							</when>
+						</choose>
+						
+				FROM
+						shop_employees
+				
+				<where>
+					<if test="opt != null">
+						<choose>
+							<when test="opt == 'name'">
+								emp_name like '%' || #{keyword} || '%'
+							</when>
+						</choose>
+					</if>
+				</where>		
+				)
+				
+		WHERE
+				row_num BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<insert id="insertEmp" parameterType="com.sample.vo.Emp">
+		 
+		INSERT INTO shop_employees
+		(emp_no, emp_name, emp_tel, emp_email, emp_salary, emp_hired_date, dept_no)
+		VALUES
+		(emps_seq.nextval, #{name}, #{tel}, #{email}, #{salary}, #{hiredDate}, #{dept.no})
+		
+	</insert>
+	
+	<select id="getEmpByNo" parameterType="int" resultType="com.sample.vo.Emp">
+	
+		SELECT
+					emp_no					AS no,
+					emp_name				AS name,
+					emp_tel					AS tel,
+					emp_email				AS email,
+					emp_salary				AS salary,
+					emp_hired_date			AS hiredDate,
+					dept_no					AS "dept.no",
+					emp_created_date		AS createdDate,
+					emp_updated_date		AS updatedDate
+		
+		FROM
+					shop_employees
+				
+		WHERE
+					emp_no = #{value}
+					
+	</select>
+	
+</mapper>
