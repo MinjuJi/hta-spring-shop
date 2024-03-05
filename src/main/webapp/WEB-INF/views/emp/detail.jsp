@@ -48,7 +48,7 @@
 				</table>
 				<div class="text-end">
 					<a href="modify?empNo=${emp.no }" class="btn btn-primary">수정</a>
-					<a href="" class="btn btn-danger">삭제</a>
+					<a href="delete?empNo=${emp.no }" class="btn btn-danger">삭제</a>
 				</div>
 			</div>
 		</div>

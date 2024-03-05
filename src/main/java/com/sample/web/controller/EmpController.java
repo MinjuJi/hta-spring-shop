@@ -93,4 +93,11 @@ public class EmpController {
 		
 		return "redirect:list"; 
 	}
+	
+	@GetMapping("/delete")
+	public String delete(int empNo) {
+		hrService.deleteEmp(empNo);
+		
+		return "redirect:list"; 
+	}
 }

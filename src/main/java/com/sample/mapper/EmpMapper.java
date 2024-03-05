@@ -21,4 +21,6 @@ public interface EmpMapper {
 
 	void modifyEmp(Emp emp);
 
+	void deleteEmp(int empNo);
+
 }

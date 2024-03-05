@@ -105,5 +105,9 @@ public class HrService {
 		
 		empMapper.modifyEmp(emp);
 	}
+
+	public void deleteEmp(int empNo) {
+		empMapper.deleteEmp(empNo);
+	}
 	
 }

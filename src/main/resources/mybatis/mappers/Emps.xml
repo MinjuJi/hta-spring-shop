@@ -120,4 +120,11 @@
 		
 	</update>
 	
+	<delete id="deleteEmp" parameterType="int">
+		
+		DELETE FROM shop_employees
+		
+		WHERE emp_no = #{value}
+	
+	</delete>
 </mapper>
