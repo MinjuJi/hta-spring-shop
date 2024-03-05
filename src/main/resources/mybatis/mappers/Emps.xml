@@ -47,7 +47,7 @@
 							<when test="sort == 'salary'">
 								row_number() OVER(ORDER BY emp_salary DESC) row_num
 							</when>
-							<when test="sort == 'hire'">
+							<when test="sort == 'hiredDate'">
 								row_number() OVER(ORDER BY emp_hired_date DESC) row_num
 							</when>
 						</choose>
@@ -82,22 +82,42 @@
 	<select id="getEmpByNo" parameterType="int" resultType="com.sample.vo.Emp">
 	
 		SELECT
-					emp_no					AS no,
-					emp_name				AS name,
-					emp_tel					AS tel,
-					emp_email				AS email,
-					emp_salary				AS salary,
-					emp_hired_date			AS hiredDate,
-					dept_no					AS "dept.no",
-					emp_created_date		AS createdDate,
-					emp_updated_date		AS updatedDate
+					E.emp_no					AS no,
+					E.emp_name					AS name,
+					E.emp_tel					AS tel,
+					E.emp_email					AS email,
+					E.emp_salary				AS salary,
+					E.emp_hired_date			AS hiredDate,
+					D.dept_name					AS "dept.name",
+					E.emp_created_date			AS createdDate,
+					E.emp_updated_date			AS updatedDate
 		
 		FROM
-					shop_employees
-				
+					shop_employees E 
+		LEFT JOIN 	shop_depts D
+		ON			E.dept_no = D.dept_no 
+					
 		WHERE
-					emp_no = #{value}
+					E.emp_no = #{value}
 					
 	</select>
+	
+	<update id="modifyEmp" parameterType="com.sample.vo.Emp">
+		
+		UPDATE 
+					shop_employees
+		
+		SET 
+					emp_name = #{name},
+					emp_tel = #{tel},
+					emp_email = #{email},
+					emp_salary = #{salary},
+					emp_hired_date = #{hiredDate},
+					dept_no = #{dept.no},
+					emp_updated_date = SYSDATE
+		
+		WHERE 		emp_no = #{no}
+		
+	</update>
 	
 </mapper>

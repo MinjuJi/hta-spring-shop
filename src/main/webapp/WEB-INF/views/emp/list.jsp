@@ -57,8 +57,8 @@
 							<input class="form-check-input" 
 									type="radio" 
 									name="sort" 
-									value="hired"
-									${param.sort eq "hired" ? "checked" : "" }
+									value="hiredDate"
+									${param.sort eq "hiredDate" ? "checked" : "" }
 									onchange="changeSort()">
 							<label class="form-check-label">입사일순</label>
 						</div>
@@ -97,7 +97,7 @@
 									<tr>
 										<td><input type="checkbox" name="no" value="${emp.no }"></td>
 										<td>
-											<a href="detail?empNo=${emp.no }&deptNo=${emp.dept.no}">
+											<a href="detail?empNo=${emp.no }">
 												${emp.name }
 											</a>
 										</td>

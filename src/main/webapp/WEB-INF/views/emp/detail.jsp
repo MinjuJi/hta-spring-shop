@@ -39,7 +39,7 @@
 						<th>입사일</th>
 						<td><fmt:formatDate value="${emp.hiredDate}" /></td>
 						<th>부서</th>
-						<td>${dept.name }</td>
+						<td>${emp.dept.name }</td>
 					</tr>
 					<tr>
 						<th>연봉</th>
@@ -47,7 +47,7 @@
 					</tr>
 				</table>
 				<div class="text-end">
-					<a href="" class="btn btn-primary">수정</a>
+					<a href="modify?empNo=${emp.no }" class="btn btn-primary">수정</a>
 					<a href="" class="btn btn-danger">삭제</a>
 				</div>
 			</div>

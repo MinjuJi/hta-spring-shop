@@ -12,8 +12,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EmpCreateForm {
-
+public class EmpModifyForm {
+	
+	private int empNo;
 	private int deptNo;
 	private String name;
 	private String tel;
@@ -23,4 +24,5 @@ public class EmpCreateForm {
 	private Date hiredDate;
 	
 
+	
 }

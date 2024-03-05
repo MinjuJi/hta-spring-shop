@@ -14,6 +14,7 @@ import com.sample.web.dto.ListDto;
 import com.sample.web.dto.Pagination;
 import com.sample.web.form.DeptCreateForm;
 import com.sample.web.form.EmpCreateForm;
+import com.sample.web.form.EmpModifyForm;
 
 @Service
 public class HrService {
@@ -78,13 +79,31 @@ public class HrService {
 		empMapper.insertEmp(emp);
 	}
 
-	public Emp getEmpDetail(int no) {
-		return empMapper.getEmpByNo(no);
+	public Emp getEmpByNo(int empNo) {
+		return empMapper.getEmpByNo(empNo);
 	}
 
 	public Dept getDeptByNo(int deptNo) {
 		
 		return deptMapper.getDeptByNo(deptNo);
+	}
+
+	public void modifyEmp(EmpModifyForm empModifyForm) {
+		Dept dept = Dept.builder()
+						.no(empModifyForm.getDeptNo())
+						.build();
+
+		Emp emp = Emp.builder()
+					 .no(empModifyForm.getEmpNo())
+				     .name(empModifyForm.getName())
+				     .tel(empModifyForm.getTel())
+				     .email(empModifyForm.getEmail())
+				     .salary(empModifyForm.getSalary())
+				     .hiredDate(empModifyForm.getHiredDate())
+				     .dept(dept)
+				     .build();
+		
+		empMapper.modifyEmp(emp);
 	}
 	
 }

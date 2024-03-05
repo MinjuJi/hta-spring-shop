@@ -17,6 +17,7 @@ import com.sample.vo.Emp;
 import com.sample.web.dto.Criteria;
 import com.sample.web.dto.ListDto;
 import com.sample.web.form.EmpCreateForm;
+import com.sample.web.form.EmpModifyForm;
 
 @Controller
 @RequestMapping("/emp")
@@ -67,13 +68,29 @@ public class EmpController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(int empNo, int deptNo, Model model) {
-		Dept dept = hrService.getDeptByNo(deptNo);
-		Emp emp = hrService.getEmpDetail(empNo);
+	public String detail(int empNo, Model model) {
+		Emp emp = hrService.getEmpByNo(empNo);
 		
 		model.addAttribute("emp", emp);
-		model.addAttribute("dept", dept);
 		
 		return "emp/detail"; 
+	}
+	
+	@GetMapping("/modify")
+	public String form(int empNo, Model model) {
+		Emp emp = hrService.getEmpByNo(empNo);
+		List<Dept> depts = hrService.getAllDepts();
+		
+		model.addAttribute("emp", emp);
+		model.addAttribute("depts", depts);
+		
+		return "emp/modifyForm"; 
+	}
+	
+	@PostMapping("/modify")
+	public String modify(EmpModifyForm empModifyForm) {
+		hrService.modifyEmp(empModifyForm);
+		
+		return "redirect:list"; 
 	}
 }

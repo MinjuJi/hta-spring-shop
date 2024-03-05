@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.sample.vo.Emp;
 import com.sample.web.dto.Criteria;
+import com.sample.web.form.EmpModifyForm;
 
 @Mapper
 public interface EmpMapper {
@@ -16,6 +17,8 @@ public interface EmpMapper {
 
 	void insertEmp(Emp emp);
 
-	Emp getEmpByNo(int no);
+	Emp getEmpByNo(int empNo);
+
+	void modifyEmp(Emp emp);
 
 }
